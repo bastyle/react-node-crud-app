@@ -2,13 +2,13 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './Home';
-import AddUptStudent from './AddUptStudent';
+import StudentForm from './AddUptStudent';
 
 const AppRouter = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/addUpt" element={<AddUptStudent/>} />
+        <Route path="/addUpt" element={<StudentForm/>} />
         <Route path="/" element={<Home/>} />
       </Routes>
     </Router>
