@@ -1,0 +1,65 @@
+/* Home.css */
+.container {
+  width: 80%;
+  margin: auto;
+}
+
+.students-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.students-table th, .students-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.students-table th {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.button-delete {
+  background-color: #f44336;
+}
+
+.button-update {
+  background-color: #4CAF50;
+}
+
+.button-find {
+  background-color: #008CBA;
+}
+
+.input-find {
+  padding: 10px 20px;
+  margin: 4px 2px;
+}
+.input-container {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    width: 500px; /* Set a width or adjust as needed */
+  }
+  
+  .input-find {
+    /* Add your input styles */
+    flex: 1; /* This will make the input take up the remaining space */
+  }
+
+  .td {
+    width: 33%;
+  }
