@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import './AddUptStudent.css';
 import { Link, useNavigate } from 'react-router-dom';
 
-const StudentForm = ({ onSubmit, onCancel, initialValues }) => {
+const StudentForm = ({ onSubmitUpd, onSubmitAdd, onCancel, initialValues }) => {
   const [formData, setFormData] = useState(initialValues || {});
-  const navigate = useNavigate();
+  const [editingStudent, setEditingStudent] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -13,14 +13,24 @@ const StudentForm = ({ onSubmit, onCancel, initialValues }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(formData);
+    if(editingStudent){
+      onSubmitUpd(formData);
+    }else{
+      onSubmitAdd(formData);
+    }
   };
 
   useEffect(() => {
     // If initialValues is provided, update the form data when it changes
     console.log('initialValues:', initialValues)
     if (initialValues) {
-      setFormData(initialValues);
+      setEditingStudent(true);
+      const { _id, __v, ...updatedInitialValues } = initialValues;
+      console.log('updatedInitialValues:', updatedInitialValues)
+      setFormData(updatedInitialValues);
+      //setFormData(initialValues);
+    }else{
+      setEditingStudent(false);
     }
   }, [initialValues]);
 

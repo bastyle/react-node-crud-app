@@ -83,10 +83,12 @@ mongoose.connect(process.env.MONGODB_URI, {
     }
   });
 
-  // Update a student by ID
-  app.put('/api/students/:id', async (req, res) => {
+  // Update a student by studentNumber
+  app.put('/api/students/:studentNumber', async (req, res) => {
     try {
-      const student = await studentModel.findByIdAndUpdate(req.params.id, req.body, { new: true });
+      //const student = await studentModel.findByIdAndUpdate(req.params.id, req.body, { new: true });
+      const student = await studentModel.findOneAndUpdate({studentNumber: req.params.studentNumber}, req.body, { new: true });
+      console.log('Student updated:', student);
       if (student) {
         res.json(student);
       } else {

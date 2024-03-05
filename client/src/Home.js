@@ -44,26 +44,7 @@ export default function () {
         }
     };
 
-    const handleUpdate = async (student) => {
-        try {
-            const response = await fetch(`${BASE_URL}/${student.id}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(student)
-            });
-            if (response.ok) {
-                // Update the students list after successful update
-                setStudents(students.map((s) => (s.id === student.id ? student : s)));
-                fetchStudents();
-            } else {
-                console.error('Error updating student:', response.status);
-            }
-        } catch (error) {
-            console.error('Error updating student:', error);
-        }
-    }
+
 
     const handleFind = async () => {
         try {
@@ -101,6 +82,54 @@ export default function () {
         }
     };
 
+    const handleAdd = async (student) => {
+        try {
+            const response = await fetch(`${BASE_URL}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(student)
+            });
+            if (response.ok) {
+                // Update the students list after successful update
+                //setStudents(students.map((s) => (s.id === student.id ? student : s)));
+                fetchStudents();
+                alert('Action executed successfully!');
+                setShowStudentForm(false);
+            } else {
+                console.error('Error adding student:', response.status);
+                alert('Error adding student:', response.error);
+            }
+        } catch (error) {
+            console.error('Error adding student:', error);
+        }
+    }
+
+    const handleUpdate = async (student) => {
+        try {
+            const response = await fetch(`${BASE_URL}/${student.studentNumber}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(student)
+            });
+            if (response.ok) {
+                // Update the students list after successful update
+                //setStudents(students.map((s) => (s.id === student.id ? student : s)));
+                fetchStudents();
+                alert('Action executed successfully!');
+                setShowStudentForm(false);
+            } else {
+                console.error('Error updating student:', response.status);
+                alert('Error updating student:', response.error);
+            }
+        } catch (error) {
+            console.error('Error updating student:', error);
+        }
+    }
+
     
 
     const handleEditStudent = (student) => {
@@ -130,7 +159,8 @@ export default function () {
 
             {showStudentForm ? (
                 <StudentForm
-                onSubmit={handleAddOrUpdateStudent}
+                onSubmitUpd={handleUpdate}
+                onSubmitAdd={handleAdd}
                 onCancel={handleCancel}
                 initialValues={editingStudent}  // Pass the editing student data
               />
