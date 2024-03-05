@@ -3,7 +3,7 @@ const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
 const cors = require("cors")
-const studentModel = require('./models/studentModel');
+const studentRoutes = require("./routes/studentRoutes");
 
 const corsOptions = {
   origin: '*',
@@ -33,87 +33,9 @@ mongoose.connect(process.env.MONGODB_URI, {
     console.error('Failed to connect to MongoDB:', error);
   });
 
-  // Create a student
-  app.post('/api/students', async (req, res) => {
-    try {
-      const student = await studentModel.create(req.body);
-      console.log('Student created:', student);
-      
-      res.status(201).json(student);
-    } catch (error) {
-      res.status(500).json({ error: 'Failed to create student:'+error });
-    }
-  });
 
+app.use("/api/students", studentRoutes);
 
-  // Read all students
-  app.get('/api/students', async (req, res) => {
-    try {
-      const students = await studentModel.find();
-      res.json(students);
-    } catch (error) {
-      res.status(500).json({ error: 'Failed to fetch students' });
-    }
-  });
-
-  // Read a student by ID
-  /*app.get('/api/students/:id', async (req, res) => {
-    try {
-      const student = await studentModel.findById(req.params.id);
-      if (student) {
-        res.json(student);
-      } else {
-        res.status(404).json({ error: 'Student not found' });
-      }
-    } catch (error) {
-      res.status(500).json({ error: 'Failed to fetch student' });
-    }
-  });*/
-  app.get('/api/students/:studentNumber', async (req, res) => {
-    try {
-      //const student = await studentModel.findById(req.params.id);
-      const student = await studentModel.findOne({ studentNumber: req.params.studentNumber });
-      if (student) {
-        res.json(student);
-      } else {
-        res.status(404).json({ error: 'Student not found' });
-      }
-    } catch (error) {
-      res.status(500).json({ error: 'Failed to fetch student' });
-    }
-  });
-
-  // Update a student by studentNumber
-  app.put('/api/students/:studentNumber', async (req, res) => {
-    try {
-      //const student = await studentModel.findByIdAndUpdate(req.params.id, req.body, { new: true });
-      const student = await studentModel.findOneAndUpdate({studentNumber: req.params.studentNumber}, req.body, { new: true });
-      console.log('Student updated:', student);
-      if (student) {
-        res.json(student);
-      } else {
-        res.status(404).json({ error: 'Student not found' });
-      }
-    } catch (error) {
-      res.status(500).json({ error: 'Failed to update student' });
-    }
-  });
-
-  // Delete a student by ID
-  app.delete('/api/students/:id', async (req, res) => {
-    try {
-      const student = await studentModel.findByIdAndDelete(req.params.id);
-      if (student) {
-        res.json({ message: 'Student deleted' });
-      } else {
-        res.status(404).json({ error: 'Student not found' });
-      }
-    } catch (error) {
-      res.status(500).json({ error: 'Failed to delete student' });
-    }
-  });
-
-// Start the server
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });

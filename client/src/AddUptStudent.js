@@ -46,7 +46,7 @@ const StudentForm = ({ onSubmitUpd, onSubmitAdd, onCancel, initialValues }) => {
       <form onSubmit={handleSubmit} className="student-form">
             <label className="form-label">
               Student Number:
-              <input type="text" name="studentNumber" value={formData.studentNumber} onChange={handleChange} className="form-input" />
+              <input type="text" name="studentNumber" value={formData.studentNumber} onChange={handleChange} className="form-input" readOnly={editingStudent} />
             </label>
             <label className="form-label">
               First Name:
